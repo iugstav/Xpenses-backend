@@ -1,4 +1,3 @@
-
 {
   "compilerOptions": {
     "target": "es2017",
@@ -14,8 +13,8 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@modules/*": ["src/modules/*"], 
-      "@src/*": ["src/*"] 
+      "@modules/*": ["src/modules/*"],
+      "@src/*": ["src/*"]
     }
   },
   "include": ["src"]

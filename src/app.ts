@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import compression from "compression";
+import cookieParser from "cookie-parser";
 import http from "http";
 import { usersRouter } from "@modules/account/user/routes";
 import { walletsRouter } from "@modules/wallets/routes";
@@ -23,6 +24,7 @@ export class Application {
     this._app.use(cors());
     this._app.use(helmet());
     this._app.use(compression());
+    this._app.use(cookieParser());
   }
 
   private setupRoutes() {
@@ -33,7 +35,7 @@ export class Application {
 
   public start() {
     this._server = this._app.listen(5000, () => {
-      console.log(`server runnning on port 5000`);
+      console.log(`server running on port 5000`);
     });
 
     return this._server;

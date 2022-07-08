@@ -1,7 +1,7 @@
 import { BCryptHash } from "@modules/account/auth/hash";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 import { User } from "@prisma/client";
-import { IUserDTO } from "../userDTO";
+import { IUserDTO } from "../dto/userDTO";
 
 export class CreateUserService {
   constructor(
