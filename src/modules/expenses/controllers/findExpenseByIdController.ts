@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { ExpensesRepository } from "../repositories/PrismaExpenses.repository";
+import { ExpensesRepository } from "../repositories/implementations/PrismaExpenses.repository";
 import { FindExpenseByIdService } from "../services/findExpenseByIdService";
 
 export class FindExpenseByIdController {

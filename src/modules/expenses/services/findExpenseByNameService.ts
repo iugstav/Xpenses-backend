@@ -5,7 +5,7 @@ export class FindExpenseByNameService {
 
   async execute(name: string) {
     if (name.trim().length < 4 || name.trim().length > 32) {
-      throw new Error("invalid name");
+      throw new Error("Invalid name");
     }
 
     const result = await this.expensesRepository.findByName(name);

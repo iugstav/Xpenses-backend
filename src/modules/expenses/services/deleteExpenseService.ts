@@ -1,15 +1,18 @@
-import { IExpensesDTO } from "../expensesDTO";
 import { IExpensesRepository } from "../repositories/IExpensesRepository";
+
+type DeleteExpenseServiceRequest = {
+  id: string;
+};
 
 export class DeleteExpenseService {
   constructor(private expensesRepository: IExpensesRepository) {}
 
-  async execute(expense: IExpensesDTO) {
-    if (expense.name.trim().length < 4 || expense.name.trim().length > 32) {
-      throw new Error("invalid expense name");
+  async execute({ id }: DeleteExpenseServiceRequest) {
+    if (!id) {
+      throw new Error("parameter not found.");
     }
 
-    await this.expensesRepository.deleteExpense(expense);
+    await this.expensesRepository.deleteExpense(id);
 
     return;
   }

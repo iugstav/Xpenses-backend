@@ -1,6 +1,6 @@
 import { BCryptHash } from "@modules/account/auth/hash";
 import { User } from "@prisma/client";
-import { UsersRepository } from "../repositories/PrismaUsers.repository";
+import { UsersRepository } from "../repositories/implementations/PrismaUsers.repository";
 
 export class GetUserByEmailService {
   constructor(private usersRepository: UsersRepository) {}

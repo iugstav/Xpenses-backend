@@ -1,6 +1,6 @@
 import { BCryptHash } from "@modules/account/auth/hash";
 import type { Request, Response } from "express";
-import { UsersRepository } from "../repositories/PrismaUsers.repository";
+import { UsersRepository } from "../repositories/implementations/PrismaUsers.repository";
 import { AuthenticateUserService } from "../services/authenticateUserService";
 
 const DURATION = 60 * 60 * 1000 * 24 * 30; // 30 days

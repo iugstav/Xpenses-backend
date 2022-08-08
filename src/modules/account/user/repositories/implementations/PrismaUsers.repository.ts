@@ -1,8 +1,8 @@
 import { User } from "@prisma/client";
 import { prismaClient } from "@src/prisma";
 
-import { IUserDTO } from "../dto/userDTO";
-import { IUsersRepository } from "./IUsersRepository";
+import { IUserDTO } from "../../dto/userDTO";
+import { IUsersRepository } from "../IUsersRepository";
 
 export class UsersRepository implements IUsersRepository {
   async create(user: IUserDTO): Promise<User> {
@@ -13,13 +13,13 @@ export class UsersRepository implements IUsersRepository {
     return result;
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<User> {
     const result = await prismaClient.user.findUnique({
       where: { email },
     });
 
     if (!result) {
-      return null;
+      throw new Error("User not found in database.");
     }
 
     return result;

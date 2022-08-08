@@ -1,7 +1,7 @@
 import { RegisterDto } from "@modules/account/auth/dto/register.dto";
 import { BCryptHash } from "@modules/account/auth/hash";
 import type { Request, Response } from "express";
-import { UsersRepository } from "../repositories/PrismaUsers.repository";
+import { UsersRepository } from "../repositories/implementations/PrismaUsers.repository";
 import { CreateUserService } from "../services/createUserService";
 
 export class CreateUserController {

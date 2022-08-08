@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { UsersRepository } from "../repositories/PrismaUsers.repository";
+import { UsersRepository } from "../repositories/implementations/PrismaUsers.repository";
 import { GetUserByEmailService } from "../services/getUserByEmailService";
 
 export class GetUserByEmailController {

@@ -1,4 +1,4 @@
-import { IExpenses } from "@modules/expenses/expenses";
+import { Expense } from "@modules/expenses/Expense";
 
 export interface IWallet {
   id: string;
@@ -8,5 +8,5 @@ export interface IWallet {
   createdAt: string;
 
   ownerId: string;
-  expenses: IExpenses[];
+  expenses: Expense[];
 }
