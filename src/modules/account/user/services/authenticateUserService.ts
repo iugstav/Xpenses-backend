@@ -1,16 +1,21 @@
 import { sign } from "jsonwebtoken";
 
 import { User } from "@prisma/client";
-import { BCryptHash } from "@modules/account/auth/hash";
+import { BCryptHash } from "@modules/account/auth/hash/implementations/BCrypthash";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 
 import { config } from "dotenv";
 config();
 
-interface IResponse {
+type AuthenticateUserServiceRequest = {
+  email: string;
+  password: string;
+};
+
+type AuthenticateUserServiceResponse = {
   user: User;
   token: string;
-}
+};
 
 export class AuthenticateUserService {
   constructor(
@@ -18,7 +23,10 @@ export class AuthenticateUserService {
     private hasher: BCryptHash
   ) {}
 
-  async execute(email: string, password: string): Promise<IResponse> {
+  async execute({
+    email,
+    password,
+  }: AuthenticateUserServiceRequest): Promise<AuthenticateUserServiceResponse> {
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 

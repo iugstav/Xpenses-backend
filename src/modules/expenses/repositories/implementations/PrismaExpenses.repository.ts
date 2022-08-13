@@ -1,5 +1,4 @@
 import { Expense } from "@modules/expenses/Expense";
-import { Expenses } from "@prisma/client";
 import { prismaClient } from "@src/prisma";
 import { IExpensesRepository } from "../IExpensesRepository";
 

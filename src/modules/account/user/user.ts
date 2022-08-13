@@ -1,4 +1,4 @@
-import { IWallet } from "@modules/wallets/wallet";
+import { Wallet } from "@modules/wallets/Wallet";
 
 export interface IUser {
   _id?: string;
@@ -7,5 +7,5 @@ export interface IUser {
   name: string;
   createdAt?: Date;
 
-  wallets?: IWallet[];
+  wallets?: Wallet[];
 }

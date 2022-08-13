@@ -1,12 +1,12 @@
-import { Wallet } from "@prisma/client";
+import { Wallet } from "../Wallet";
 import { IWalletDTO } from "../walletDTO";
 
 export interface IWalletsRepository {
-  create(wallet: IWalletDTO, email: string): Promise<Wallet>;
-  findByName(name: string): Promise<Wallet | null>;
-  findById(walletId: string): Promise<Wallet | null>;
+  create(wallet: Wallet, userId: string): Promise<Wallet>;
+  findByName(name: string): Promise<Wallet>;
+  findById(walletId: string): Promise<Wallet>;
   getAll(userId: string): Promise<Wallet[]>;
-  exists(wallet: IWalletDTO): Promise<boolean>;
-  updateName(wallet: IWalletDTO, newName: string): Promise<void>;
-  deleteWallet(wallet: IWalletDTO): Promise<void>;
+  exists(id: string): Promise<boolean>;
+  updateName(walletId: string, newName: string): Promise<void>;
+  deleteWallet(id: string): Promise<void>;
 }

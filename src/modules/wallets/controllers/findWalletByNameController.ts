@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { WalletsRepository } from "../repositories/PrismaWallets.repository";
+import { WalletsRepository } from "../repositories/implementations/PrismaWallets.repository";
 import { FindWalletByNameService } from "../services/findWalletByNameService";
 
 export class FindWalletByNameController {
@@ -18,9 +18,9 @@ export class FindWalletByNameController {
 
       return response.status(200).json({
         id: result.id,
-        name: result.name,
-        amount: result.amount,
-        color: result.color,
+        name: result.properties.name,
+        amount: result.properties.amount,
+        color: result.properties.color,
       });
     } catch (error) {
       console.log(error);

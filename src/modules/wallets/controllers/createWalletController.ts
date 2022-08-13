@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { WalletsRepository } from "../repositories/PrismaWallets.repository";
+import { WalletsRepository } from "../repositories/implementations/PrismaWallets.repository";
 import { CreateWalletService } from "../services/createWalletService";
 
 export class CreateWalletController {
@@ -17,9 +17,9 @@ export class CreateWalletController {
       const result = await service.execute({ name, amount, color }, email);
 
       return response.status(200).json({
-        name: result.name,
-        amount: result.amount,
-        color: result.color,
+        name: result.properties.name,
+        amount: result.properties.amount,
+        color: result.properties.color,
       });
     } catch (error) {
       console.log(error);

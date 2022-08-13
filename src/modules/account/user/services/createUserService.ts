@@ -1,7 +1,12 @@
-import { BCryptHash } from "@modules/account/auth/hash";
+import { BCryptHash } from "@modules/account/auth/hash/implementations/BCrypthash";
 import { IUsersRepository } from "../repositories/IUsersRepository";
 import { User } from "@prisma/client";
-import { IUserDTO } from "../dto/userDTO";
+
+type CreateUserServiceRequest = {
+  name: string;
+  email: string;
+  password: string;
+};
 
 export class CreateUserService {
   constructor(
@@ -9,7 +14,11 @@ export class CreateUserService {
     private hasher: BCryptHash
   ) {}
 
-  async execute({ name, email, password }: IUserDTO): Promise<User> {
+  async execute({
+    name,
+    email,
+    password,
+  }: CreateUserServiceRequest): Promise<User> {
     const emailRegex =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 

@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { WalletsRepository } from "../repositories/PrismaWallets.repository";
+import { WalletsRepository } from "../repositories/implementations/PrismaWallets.repository";
 import { FindWalletByIdService } from "../services/findWalletByIdService";
 
 export class FindWalletByIdController {
