@@ -1,8 +1,8 @@
 import { sign } from "jsonwebtoken";
 
-import { User } from "@prisma/client";
-import { BCryptHash } from "@modules/account/auth/hash/implementations/BCrypthash";
+import { User } from "../User";
 import { IUsersRepository } from "../repositories/IUsersRepository";
+import type { IHash } from "@modules/account/auth/hash/IHash";
 
 import { config } from "dotenv";
 config();
@@ -20,7 +20,7 @@ type AuthenticateUserServiceResponse = {
 export class AuthenticateUserService {
   constructor(
     private usersRepository: IUsersRepository,
-    private hasher: BCryptHash
+    private hasher: IHash
   ) {}
 
   async execute({
@@ -46,7 +46,7 @@ export class AuthenticateUserService {
 
     const passwordMatch = await this.hasher.compareHash(
       password,
-      user.password
+      user.properties.password
     );
 
     if (!passwordMatch) {

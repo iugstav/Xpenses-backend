@@ -5,16 +5,16 @@ import { DeleteWalletService } from "../services/deleteWalletService";
 export class DeleteWalletController {
   async handle(request: Request, response: Response) {
     try {
-      const { name, amount, color } = request.body;
+      const { walletId } = request.body;
 
-      if (!name || !amount || !color) {
+      if (!walletId) {
         return response.status(400).json({ error: "Invalid content." });
       }
 
       const walletsRepository = new WalletsRepository();
       const service = new DeleteWalletService(walletsRepository);
 
-      await service.execute({ name, amount, color });
+      await service.execute(walletId);
 
       return response
         .status(204)

@@ -14,8 +14,10 @@ export class GetUserByEmailController {
 
       return response.status(200).json({
         id: result.id,
-        name: result.name,
-        email: result.email,
+        name: result.properties.name,
+        email: result.properties.email,
+        createdAt: result.properties.createdAt,
+        wallets: result.properties.wallets,
       });
     } catch (error) {
       console.log(error);

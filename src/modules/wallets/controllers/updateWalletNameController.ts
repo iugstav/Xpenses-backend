@@ -5,18 +5,20 @@ import { UpdateWalletNameService } from "../services/updateWalletNameService";
 export class UpdateWalletNameController {
   async handle(request: Request, response: Response) {
     try {
-      const { name, amount, color, newName } = request.body;
+      const { walletId, newName } = request.body;
 
-      if (!name || !amount || !color || !newName) {
+      if (!walletId || !newName) {
         return response.status(400).json({ error: "Invalid content." });
       }
 
       const walletsRepository = new WalletsRepository();
       const service = new UpdateWalletNameService(walletsRepository);
 
-      await service.execute({ name, amount, color }, newName);
+      await service.execute({ walletId, newName });
 
-      return response.status(204);
+      return response
+        .status(204)
+        .json({ message: "Wallet name successfully updated." });
     } catch (error) {
       console.log(error);
       return response.status(500).json(error);

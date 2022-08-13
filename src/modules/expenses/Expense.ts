@@ -1,6 +1,6 @@
 import { Entity } from "@src/core/Entity";
 
-type ExpensesProps = {
+type ExpenseProps = {
   name: string;
   amount: number;
   description: string;
@@ -9,12 +9,12 @@ type ExpensesProps = {
   walletId: string;
 };
 
-export class Expense extends Entity<ExpensesProps> {
-  private constructor(props: ExpensesProps, id?: string) {
+export class Expense extends Entity<ExpenseProps> {
+  private constructor(props: ExpenseProps, id?: string) {
     super(props, id);
   }
 
-  static create(props: ExpensesProps, id?: string) {
+  static create(props: ExpenseProps, id?: string) {
     return new Expense(props, id);
   }
 }

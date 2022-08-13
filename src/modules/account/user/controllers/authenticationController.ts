@@ -21,7 +21,7 @@ export class AuthenticationController {
         bCryptHasher
       );
 
-      const { user, token } = await service.execute(email, password);
+      const { user, token } = await service.execute({ email, password });
 
       response.cookie("jwt", token, {
         httpOnly: true,
@@ -30,8 +30,10 @@ export class AuthenticationController {
 
       return response.status(200).json({
         user: {
-          email: user.email,
-          name: user.name,
+          name: user.properties.name,
+          email: user.properties.email,
+          createdAt: user.properties.createdAt,
+          wallets: user.properties.wallets,
         },
         token,
       });

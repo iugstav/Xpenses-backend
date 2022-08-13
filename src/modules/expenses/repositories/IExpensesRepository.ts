@@ -1,4 +1,3 @@
-import { Expenses } from "@prisma/client";
 import { Expense } from "../Expense";
 
 export interface IExpensesRepository {

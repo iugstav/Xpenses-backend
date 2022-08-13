@@ -1,10 +1,9 @@
-import { User } from "@prisma/client";
-import { IUserDTO } from "../dto/userDTO";
+import { User } from "../User";
 
 export interface IUsersRepository {
-  create(user: IUserDTO): Promise<User>;
-  findByEmail(email: string): Promise<User | null>;
-  exists(user: IUserDTO): Promise<boolean>;
-  updateName(user: IUserDTO): Promise<void>;
-  deleteUser(user: IUserDTO): Promise<void>;
+  create(user: User): Promise<User>;
+  findByEmail(email: string): Promise<User>;
+  exists(email: string): Promise<boolean>;
+  updateName(userId: string, newName: string): Promise<void>;
+  deleteUser(userId: string): Promise<void>;
 }

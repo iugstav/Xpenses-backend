@@ -5,21 +5,25 @@ import { CreateWalletService } from "../services/createWalletService";
 export class CreateWalletController {
   async handle(request: Request, response: Response) {
     try {
-      const { name, amount, color, email } = request.body;
+      const { name, amount, color, userId, createdAt } = request.body;
 
-      if (!name || !amount || !color) {
+      if (!name || !amount || !color || !userId || !createdAt) {
         return response.status(400).json({ error: "Invalid content." });
       }
 
       const walletsRepository = new WalletsRepository();
       const service = new CreateWalletService(walletsRepository);
 
-      const result = await service.execute({ name, amount, color }, email);
+      const result = await service.execute({
+        name,
+        amount,
+        color,
+        userId,
+        createdAt,
+      });
 
       return response.status(200).json({
-        name: result.properties.name,
-        amount: result.properties.amount,
-        color: result.properties.color,
+        wallet: result,
       });
     } catch (error) {
       console.log(error);

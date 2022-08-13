@@ -5,9 +5,9 @@ import { IWalletsRepository } from "../IWalletsRepository";
 import { Expense } from "@modules/expenses/Expense";
 
 export class WalletsRepository implements IWalletsRepository {
-  async create(wallet: Wallet, user_id: string): Promise<Wallet> {
+  async create(wallet: Wallet): Promise<Wallet> {
     const user = await prismaClient.user.findUnique({
-      where: { id: user_id },
+      where: { id: wallet.properties.userId },
     });
 
     if (!user) {
@@ -156,7 +156,13 @@ export class WalletsRepository implements IWalletsRepository {
   }
 
   async exists(id: string): Promise<boolean> {
-    return (await this.findById(id)) ? true : false;
+    const wallet = await prismaClient.wallet.findUnique({
+      where: { id },
+    });
+
+    const walletExists = wallet ? true : false;
+
+    return walletExists;
   }
 
   async updateName(walletId: string, newName: string): Promise<void> {

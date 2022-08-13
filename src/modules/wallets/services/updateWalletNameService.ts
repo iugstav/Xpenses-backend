@@ -1,29 +1,27 @@
 import { IWalletsRepository } from "../repositories/IWalletsRepository";
 import { IWalletDTO } from "../walletDTO";
 
+type UpdateWalletNameServiceRequest = {
+  walletId: string;
+  newName: string;
+};
+
 export class UpdateWalletNameService {
   constructor(private walletsRepository: IWalletsRepository) {}
 
-  async execute(wallet: IWalletDTO, newName: string) {
-    if (wallet.name.trim().length < 4 || wallet.name.trim().length > 24) {
+  async execute({ walletId, newName }: UpdateWalletNameServiceRequest) {
+    if (newName.trim().length < 4 || newName.trim().length > 24) {
       throw new Error("Invalid name");
     }
-    if (!wallet.name) {
-      throw new Error("Name not found");
-    }
-
-    if (wallet.color.length < 4 || wallet.color.length > 12) {
-      throw new Error("Invalid color");
-    }
-    if (!wallet.color) {
-      throw new Error("Color not found");
-    }
-
     if (!newName) {
-      throw new Error("New name not found");
+      throw new Error("New Name not found");
     }
 
-    await this.walletsRepository.updateName(wallet, newName);
+    if (!walletId) {
+      throw new Error("Wallet Id not found");
+    }
+
+    await this.walletsRepository.updateName(walletId, newName);
 
     return;
   }
