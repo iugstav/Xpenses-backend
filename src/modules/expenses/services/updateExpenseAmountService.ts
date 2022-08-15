@@ -1,3 +1,4 @@
+import { IWalletsRepository } from "@modules/wallets/repositories/IWalletsRepository";
 import { IExpensesRepository } from "../repositories/IExpensesRepository";
 
 type UpdateExpenseAmountServiceRequest = {
@@ -6,7 +7,10 @@ type UpdateExpenseAmountServiceRequest = {
 };
 
 export class UpdateExpenseAmountService {
-  constructor(private expensesRepository: IExpensesRepository) {}
+  constructor(
+    private expensesRepository: IExpensesRepository,
+    private walletsRepository: IWalletsRepository
+  ) {}
 
   async execute({ expenseId, newAmount }: UpdateExpenseAmountServiceRequest) {
     if (newAmount <= 0) {
@@ -15,12 +19,11 @@ export class UpdateExpenseAmountService {
 
     const expense = await this.expensesRepository.findById(expenseId);
 
-    const isExpenseAmountBiggerThanWallet =
-      await this.expensesRepository.checkIfAmountIsBiggerThanWallet(
-        expense.properties.name
-      );
+    const expenseWallet = await this.walletsRepository.findById(
+      expense.properties.walletId
+    );
 
-    if (isExpenseAmountBiggerThanWallet) {
+    if (expense.properties.amount > expenseWallet.properties.amount) {
       throw new Error("Expense amount cannot be bigger than wallet amount");
     }
 

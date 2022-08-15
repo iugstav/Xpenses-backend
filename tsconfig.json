@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2017",
-    "lib": ["ESNext"],
+    "target": "es5",
+    "lib": ["ES2022"],
     "module": "commonjs",
     "noEmit": true,
     "strict": true,

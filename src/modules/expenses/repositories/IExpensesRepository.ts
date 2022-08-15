@@ -8,6 +8,4 @@ export interface IExpensesRepository {
   exists(name: string): Promise<boolean>;
   updateAmount(expenseId: string, newAmount: number): Promise<void>;
   deleteExpense(id: string): Promise<void>;
-
-  checkIfAmountIsBiggerThanWallet(name: string): Promise<boolean>;
 }

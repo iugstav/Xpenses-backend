@@ -3,6 +3,9 @@ import { prismaClient } from "@src/prisma";
 import { IExpensesRepository } from "../IExpensesRepository";
 
 export class ExpensesRepository implements IExpensesRepository {
+  checkIfAmountIsBiggerThanWallet(name: string): Promise<boolean> {
+    throw new Error("Method not implemented.");
+  }
   async create(expense: Expense): Promise<Expense> {
     const wallet = await prismaClient.wallet.findUnique({
       where: { id: expense.properties.walletId },
@@ -34,7 +37,7 @@ export class ExpensesRepository implements IExpensesRepository {
     });
 
     if (!result) {
-      throw new Error("Invalid id.");
+      throw new Error("Invalid id");
     }
 
     return Expense.create(
@@ -55,7 +58,7 @@ export class ExpensesRepository implements IExpensesRepository {
     });
 
     if (!result) {
-      throw new Error("Invalid name.");
+      throw new Error("Invalid name");
     }
 
     return Expense.create(
@@ -102,7 +105,7 @@ export class ExpensesRepository implements IExpensesRepository {
     });
 
     if (!expenseToUpdate) {
-      throw new Error("Invalid expense");
+      throw new Error("Invalid id");
     }
 
     await prismaClient.expenses.update({
@@ -121,26 +124,5 @@ export class ExpensesRepository implements IExpensesRepository {
     await prismaClient.expenses.delete({
       where: { id },
     });
-  }
-
-  //it returns false if amount < wallet and true if amount > wallet
-  async checkIfAmountIsBiggerThanWallet(name: string): Promise<boolean> {
-    const expenseAmount = await prismaClient.expenses.findUnique({
-      where: { name },
-    });
-
-    if (!expenseAmount) {
-      throw new Error("expense does not exist.");
-    }
-
-    const walletAmount = await prismaClient.wallet.findUnique({
-      where: { id: expenseAmount.walletId },
-    });
-
-    if (!walletAmount) {
-      throw new Error("wallet amount not found;");
-    }
-
-    return expenseAmount.amount > walletAmount.amount ? true : false;
   }
 }

@@ -48,7 +48,7 @@ export class WalletsRepository implements IWalletsRepository {
     });
 
     if (!result) {
-      throw new Error("Invalid name.");
+      throw new Error("Invalid name");
     }
 
     const mappedExpenses = result.expenses.map((expense) => {
@@ -84,7 +84,7 @@ export class WalletsRepository implements IWalletsRepository {
     });
 
     if (!result) {
-      throw new Error("Invalid wallet id.");
+      throw new Error("Invalid wallet id");
     }
 
     const mappedExpenses = result.expenses.map((expense) => {

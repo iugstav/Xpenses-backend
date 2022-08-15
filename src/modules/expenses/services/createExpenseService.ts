@@ -1,3 +1,4 @@
+import { IWalletsRepository } from "@modules/wallets/repositories/IWalletsRepository";
 import { randomUUID } from "crypto";
 
 import { Expense } from "../Expense";
@@ -12,7 +13,10 @@ type CreateExpenseServiceRequest = {
 };
 
 export class CreateExpenseService {
-  constructor(private expensesRepository: IExpensesRepository) {}
+  constructor(
+    private expensesRepository: IExpensesRepository,
+    private walletsRepository: IWalletsRepository
+  ) {}
 
   async execute(expense: CreateExpenseServiceRequest) {
     if (expense.name.trim().length < 4 || expense.name.trim().length > 32) {
@@ -30,12 +34,11 @@ export class CreateExpenseService {
       throw new Error("Expense already created");
     }
 
-    const isExpenseAmountBiggerThanWallet =
-      await this.expensesRepository.checkIfAmountIsBiggerThanWallet(
-        expense.name
-      );
+    const expenseWallet = await this.walletsRepository.findById(
+      expense.walletId
+    );
 
-    if (isExpenseAmountBiggerThanWallet) {
+    if (expense.amount > expenseWallet.properties.amount) {
       throw new Error("Expense amount cannot be bigger than wallet amount");
     }
 
